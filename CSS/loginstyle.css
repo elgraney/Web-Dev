@@ -1,0 +1,59 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
+@import url('https://fonts.googleapis.com/css?family=Lato');
+@import url('https://fonts.googleapis.com/css?family=Rubik');
+
+
+
+body{
+    background-image: url("loginbackground.jpg");
+    height: 100%; 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+form {  
+    width: 50%;
+    margin: auto;
+    box-shadow: 0 0 5px 2px #fff;
+    background: #ffffff;
+    border: 1px solid #ababab;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
+}
+
+#parent {
+    width: 100%;
+    text-align: center;
+    margin: auto;
+ }
+ #form_login {
+    text-align: center;
+    vertical-align: middle;
+ }
+
+
+p {
+    position: static;
+    font-family: "Lato";
+    color: white;
+    font-size: 20px;
+}
+
+input {
+    height: 50%;
+    width: 25%;
+    text-align: left;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    font-family: "Lato";
+}
+
+input:focus {
+    border: 3px solid #555;
+}
