@@ -43,7 +43,7 @@ function validateUser($conn, $username, $password)
         }
         else
         {
-          $error = "Invalid Password" ;
+          $error = "Invalid Login credentials" ;
           $_SESSION["apperror"] = $error ;
           header("Location: ../login.php");
         }
@@ -52,7 +52,7 @@ function validateUser($conn, $username, $password)
   }
   else
   {
-    $error = "Username not found in the database" ;
+    $error = "Invalid Login credentials";
     $_SESSION["apperror"] = $error ;
     header("Location: ../login.php");
   }

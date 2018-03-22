@@ -4,7 +4,20 @@ if (!isset($_SESSION['appuser'])) {
     header("Location: login.php");
     die();
 }
+require 'utils/connection.php';
+$sql = "SELECT name, Quantity FROM stock";
+$result = $conn->query($sql);
 
+if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        echo " - Name: " . $row["name"]. " " . $row["Quantity"]. "<br>";
+    }
+} else {
+    echo "0 results";
+}
+$conn->close();
+?>
 ?>
 
 <!DOCTYPE html>
@@ -16,7 +29,9 @@ if (!isset($_SESSION['appuser'])) {
     </head>
     <body>
       <div id = 'logout'>
-        'Username'
+        <?php
+          echo $_SESSION['appuser'];
+        ?>
         <a class = "button" href = "logout.php">Logout</a>
       </div>
       <h1>Video Games Stock</h1>
@@ -24,8 +39,7 @@ if (!isset($_SESSION['appuser'])) {
       <div class = "container">
           <div id = "search_pannel">
             <div id = "input">
-              <input id ="search" data-list = ".search_list" type = "search" placeholder=""required>
-              <label for ="search"><i class="fa fa-search"></i></label>
+              <input id ="search" data-list = ".search_list" type = "search" placeholder='search'>
 
               <button type="submit" onclick="PLACEHOLDER"  id="new_entry">Add new entry</button>
 
@@ -47,6 +61,15 @@ if (!isset($_SESSION['appuser'])) {
         </ul>
 
         <ul class = "display_list">
+          <?php foreach($result as $row): ?>
+            <li class = "item">
+              <div class = "row">
+                <div class = "left_column"><?php echo $row["name"] ?></div>
+                <div class = "right_column"><?php echo $row["Quantity"] ?></div>
+              </div>
+            </li>
+            <?php endforeach; ?>
+
             <li class = "item">
               <div class = "row">
                 <div class = "left_column">Placeholder name</div>

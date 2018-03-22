@@ -2,7 +2,6 @@
 
 session_start();
 
-
 if ( isset($_SESSION['appuser']))
 {
   header('Location: homepage.php');
@@ -41,9 +40,20 @@ else if ( isset($_SESSION['apperror'] ))
           <input type="text" name="username" value="" placeholder = "Enter Username" required style= "width:270px; height:42px; border: solid 1px #c2c4c6; font-size:16px; padding-left:8px;">
 
           <input type="password" name="password" value="" placeholder = "Enter Password" required style= "width:270px; height:42px; border: solid 1px #c2c4c6; font-size:16px; padding-left:8px;">
-
-          <input type="submit" id="submit_button" value="Submit">
+			
+			<?php
+			if ( isset($error)){
+				echo $error;
+			}
+			else {
+				echo "<br><br>";
+			}
+			?>
+		  
+		  <input type="submit" id="submit_button" value="Submit">
+		  
         </form>
+
       </div>
 
       <div id = "new_account">
