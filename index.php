@@ -1,2 +1,1 @@
-<a href = "login.php">Hello There</a>
-
+<a href = "login.php">General Kenobi!</a>

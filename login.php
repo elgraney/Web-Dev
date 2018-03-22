@@ -24,57 +24,35 @@ else if ( isset($_SESSION['apperror'] ))
 <html>
   <head>
     <link href="CSS/loginstyle.css" rel='stylesheet' type='text/css'/>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css" integrity="sha384-v2Tw72dyUXeU3y4aM2Y0tBJQkGfplr39mxZqlTBDUZAb9BGoC40+rdFCG0m10lXk" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css" integrity="sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, user-scalable=no"/>
     <title>Login Page</title>
   </head>
 
   <body>
-    <div id = "parent">
-      <form id= "form_login" name="loginForm" action="/utils/auth.php" method="post">
-        <input type="text" name="username" value="" placeholder = "Enter Username" required>
-        <input type="password" name="password" value="" placeholder = "Enter Password" required>
-        <p></p>
-        <input type="submit" value="Submit">
-      </form>
-    </div>
+    <center>
+
+      <div class = "title">
+        <div id = "head">Video Game Stock Viewer</div>
+        <div id = "sub_head">Sign in to continue to the stock viewer</div>
+      </div>
+
+      <div id = "parent">
+        <form id= "form_login" name="loginForm" action="/utils/auth.php" method="post">
+          <input type="text" name="username" value="" placeholder = "Enter Username" required style= "width:270px; height:42px; border: solid 1px #c2c4c6; font-size:16px; padding-left:8px;">
+
+          <input type="password" name="password" value="" placeholder = "Enter Password" required style= "width:270px; height:42px; border: solid 1px #c2c4c6; font-size:16px; padding-left:8px;">
+
+          <input type="submit" id="submit_button" value="Submit">
+        </form>
+      </div>
+
+      <div id = "new_account">
+        <a href='placeholder'/>Create account</a>
+      </div>
+
+    </center>
   </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 <?php

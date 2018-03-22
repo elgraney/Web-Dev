@@ -1,59 +1,93 @@
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
-@import url('https://fonts.googleapis.com/css?family=Lato');
+@import url('https://fonts.googleapis.com/css?family=Roboto');
 @import url('https://fonts.googleapis.com/css?family=Rubik');
 
 
 
 body{
-    background-image: url("loginbackground.jpg");
-    height: 100%; 
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+    background-color: white;
+    height: 100%;
+    font-family: "Roboto";
+
+}
+#head{
+    text-align: center;
+    margin-top:25px;
+    font-family: 'Open Sans', sans-serif;
+    font-size:38px;
+    color:#555557;
+}
+#sub_head{
+
+  margin-top:25px;
+  font-family: 'Open Sans', sans-serif;
+  font-size:18px;
+  font-weight:bold;
+  color:#555557;
 }
 
-form {  
-    width: 50%;
-    margin: auto;
-    box-shadow: 0 0 5px 2px #fff;
-    background: #ffffff;
-    border: 1px solid #ababab;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    -khtml-border-radius: 5px;
-    border-radius: 5px;
-}
 
 #parent {
     width: 100%;
-    text-align: center;
     margin: auto;
+    padding-top: 15px;
  }
+
  #form_login {
-    text-align: center;
+    margin-top:17px;
+    width:355px;
+    height:280px;
+    padding-top:40px;
+    background:#f7f7f7;
+    box-shadow: 0px 1px 1px 1px #c6c1c1;
     vertical-align: middle;
  }
 
+ #submit_button{
 
-p {
-    position: static;
-    font-family: "Lato";
-    color: white;
+    width:270px;
+    height:35px;
+
+    margin-top:50px;
+    background:#498af2;
+    font-family:verdana;
+    font-size:14px; color:white;
+    border-radius:5px 5px 5px 5px;
+    border-width: 1px;
+    border-style:solid;
+    border-color: gray;
+    cursor:pointer;
+    outline:none;
+ }
+  #new_account a{
+    color:#498af2;
+    text-decoration:none;
+
+  }
+ #new_account{
+    margin-top:25px;
     font-size: 20px;
+    font-family: 'Open Sans', sans-serif;
 }
 
+
 input {
-    height: 50%;
-    width: 25%;
-    text-align: left;
+    text-align: center;
     padding: 12px 20px;
-    margin: 8px 0;
+    margin: 8px 50px;
     display: inline-block;
     border: 1px solid #ccc;
     box-sizing: border-box;
-    font-family: "Lato";
 }
-
 input:focus {
     border: 3px solid #555;
+}
+
+
+.title  {
+  font-family: "Roboto";
+  color: white;
+  text-align: center;
+  padding-bottom: 10px;
+  padding-top: 10px;
 }

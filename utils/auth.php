@@ -23,9 +23,6 @@ function validateUser($conn, $username, $password)
   //Basic SQL protection
   $username = $conn->real_escape_string($username);
 
-
-
-
   $sql ="SELECT * FROM users WHERE username = '$username'";
 
   $result = $conn->query($sql);

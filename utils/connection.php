@@ -2,7 +2,7 @@
 
 $servername = "localhost";
 $username = "root";
-$password = "Hello There";
+$password = "";
 $database = "videogamesdatabase" ;
 
 // Create connection
@@ -15,7 +15,7 @@ if ($conn->connect_error)
 }
 else
 {
-  //echo "Connected successfully <br />";
+  echo "Connected successfully <br />";
 }
 
 
