@@ -7,14 +7,6 @@ body {
     font-family: "Roboto";
 }
 
-.input{
-  position: relative;
-  margin-top: 10px;
-  width: 100%;
-  float:left;
-  box-sizing: border-box;
-}
-
 
 #logout {
   position: absolute;
@@ -126,6 +118,7 @@ h1 {
 }
 #search{
   padding-top: 0.2rem;
+  padding-left: 5px;
   padding-bottom: 0.2rem;
   font-size: 1rem;
   border: 1px solid grey;

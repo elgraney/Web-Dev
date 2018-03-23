@@ -7,26 +7,23 @@ if (!isset($_SESSION['appuser'])) {
 require 'utils/connection.php';
 $sql = "SELECT name, Quantity FROM stock";
 $result = $conn->query($sql);
+$display = $result;
 
-if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-        echo " - Name: " . $row["name"]. " " . $row["Quantity"]. "<br>";
-    }
-} else {
-    echo "0 results";
-}
 $conn->close();
 ?>
-?>
 
-<!DOCTYPE html>
+
+
+
 <html>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="CSS/mainstyle.css">
+
     <head>
         <title>Home</title>
+
     </head>
+
     <body>
       <div id = 'logout'>
         <?php
@@ -39,11 +36,12 @@ $conn->close();
       <div class = "container">
           <div id = "search_pannel">
             <div id = "input">
-              <input id ="search" data-list = ".search_list" type = "search" placeholder='search'>
+              <input type="text" id="search" placeholder="Search" onkeyup="myFunction()"/>
 
               <button type="submit" onclick="PLACEHOLDER"  id="new_entry">Add new entry</button>
-
+              <div id="display"></div>
           </div>
+
         </div>
       </div>
 
@@ -61,7 +59,7 @@ $conn->close();
         </ul>
 
         <ul class = "display_list">
-          <?php foreach($result as $row): ?>
+          <?php foreach($display as $row): ?>
             <li class = "item">
               <div class = "row">
                 <div class = "left_column"><?php echo $row["name"] ?></div>
@@ -69,20 +67,35 @@ $conn->close();
               </div>
             </li>
             <?php endforeach; ?>
-
-            <li class = "item">
-              <div class = "row">
-                <div class = "left_column">Placeholder name</div>
-                <div class = "right_column">Placeholder qty</div>
-              </div>
-            </li>
-            <li class = "item">
-              <div class = "row">
-                <div class = "left_column">Placeholder name 2</div>
-                <div class = "right_column">Placeholder qty 2</div>
-              </div>
-            </li>
           </ul>
         </div>
+
+        <script>
+
+
+        function myFunction() {
+
+          var name = document.getElementById("search");
+          name.value = name.value.toUpperCase();
+
+          if (name == "") {
+
+           $("#display").html("");
+
+         }
+
+         else {
+
+           $.ajax({type: "POST",url: "utils/ajax.php", data: {search: name},
+               success: function(html) {
+                   $("#display").html(html).show();
+               }
+
+           });
+         }
+       }
+        </script>
+
+
     </body>
 </html>
