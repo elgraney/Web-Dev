@@ -58,16 +58,15 @@ body{
     border-color: gray;
     cursor:pointer;
     outline:none;
- }
-  #new_account a{
-    color:#498af2;
-    text-decoration:none;
 
   }
  #new_account{
-    margin-top:25px;
-    font-size: 20px;
-    font-family: 'Open Sans', sans-serif;
+   color:#498af2;
+   text-decoration:none;
+   cursor: pointer;
+   margin-top:25px;
+   font-size: 20px;
+   font-family: 'Open Sans', sans-serif;
 }
 
 
@@ -79,9 +78,7 @@ input {
     border: 1px solid #ccc;
     box-sizing: border-box;
 }
-input:focus {
-    border: 3px solid #555;
-}
+
 
 
 .title  {

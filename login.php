@@ -22,7 +22,8 @@ else if ( isset($_SESSION['apperror'] ))
 <!DOCTYPE html>
 <html>
   <head>
-    <link href="CSS/loginstyle.css" rel='stylesheet' type='text/css'/>
+    <link href="CSS/loginstyle1.css" rel='stylesheet' type='text/css'/>
+    <link href="CSS/modal.css" rel='stylesheet' type='text/css'/>
     <meta name="viewport" content="width=device-width, user-scalable=no"/>
     <title>Login Page</title>
   </head>
@@ -40,7 +41,7 @@ else if ( isset($_SESSION['apperror'] ))
           <input type="text" name="username" value="" placeholder = "Enter Username" required style= "width:270px; height:42px; border: solid 1px #c2c4c6; font-size:16px; padding-left:8px;">
 
           <input type="password" name="password" value="" placeholder = "Enter Password" required style= "width:270px; height:42px; border: solid 1px #c2c4c6; font-size:16px; padding-left:8px;">
-			
+
 			<?php
 			if ( isset($error)){
 				echo $error;
@@ -49,16 +50,39 @@ else if ( isset($_SESSION['apperror'] ))
 				echo "<br><br>";
 			}
 			?>
-		  
+
 		  <input type="submit" id="submit_button" value="Submit">
-		  
+
         </form>
 
       </div>
 
-      <div id = "new_account">
-        <a href='placeholder'/>Create account</a>
-      </div>
+      <div id = "new_account">Create account</div>
+
+      <div id="myModal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+            <form action="javascript:createEntry()" id = 'modal_form'>
+
+              <h2>Enter New Account Details</h2>
+              <hr>
+              <label for="title"><b>Username</b></label>
+              <input type="text" placeholder="Enter Username" name="title" id='title' required>
+              <br><br>
+              <label for="psw"><b>Password</b></label>
+              <input type="password" placeholder="Enter Password" name="psw" class = 'password' required>
+
+              <label for="psw-repeat"><b>Repeat Password</b></label>
+              <input type="password" placeholder="Repeat Password" name="psw-repeat" class = 'password' required>
+              <hr>
+              <div class="clearfix">
+                <br><center>
+                <button type="submit" class="blue_button">Create</button>
+              </center>
+              </div>
+          </form>
+          </div>
+        </div>
 
     </center>
   </body>
@@ -111,3 +135,27 @@ function hash_equals($str1, $str2)
     }
     */
 ?>
+<script>
+
+var modal = document.getElementById('myModal');
+var trigger = document.getElementById("new_account");
+var span = document.getElementsByClassName("close")[0];
+var form = document.getElementById("modal_form");
+
+trigger.onclick = function() {
+  modal.style.display = "block";
+
+}
+
+span.onclick = function() {
+  modal.style.display = "none";
+form.reset();
+}
+
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+    form.reset();
+  }
+}
+</script>
