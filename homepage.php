@@ -89,13 +89,15 @@ $conn->close();
 
         <ul class = "display_list", id = 'table'>
           <?php foreach($display as $row): ?>
-            <li class = "item" id= "list_item", style>
+            <li class = "item" id="list_item", style>
               <div class = "row">
-                <div class = "left_column"><?php echo $row["name"] ?></div>
+                <?php
+                $id =  $row["id"];
+                ?>
+                <div class = "left_column"><?php echo $row["name"] ?>
+                <a href='javascript:void(0)' onclick="deleteEntry(<?php echo $id ?>)">(delete)</a>
+                </div>
                 <div class = "right_column">
-                  <?php
-                  $id =  $row["id"];
-                  ?>
                   <form  onchange = "changeButtonColour(this)">
                     <input class="quantity" id = <?php echo $id ?> type="number" name="quantity" min="0" value="<?php echo $row['quantity']; ?>">
                     <input type="button" onClick="updateQuantity(<?php echo $id ?>, this)" value="Submit">
@@ -107,6 +109,8 @@ $conn->close();
             <?php endforeach; ?>
           </ul>
         </div>
+
+
 
         <script>
         function liveSearch() {
@@ -151,23 +155,92 @@ $conn->close();
           button.style.color = 'white';
         }
 
+
         function createEntry(){
           var name = document.getElementById('title').value;
           var quantity = document.getElementById('new_quantity').value;
-
+          var form = document.getElementById('modal_form');
           var xhttp = new XMLHttpRequest();
           xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
+              var id = xhttp.responseText;
               var modal = document.getElementById('myModal');
               modal.style.display = "none";
-              alert("pass");
+              form.reset();
+              alert(id);
+              //RETURN AND USE ID
+
+
+              //Using Dom to create a new list item to represent the new new_entry
+              //This must be done because we are avoiding reloading the page
+              alert('ready');
+              var parent = document.getElementById('table');
+
+              var li = document.createElement('li');
+              li.setAttribute('class' ,'item');
+              li.setAttribute('id' , 'item_list');
+              parent.appendChild(li);
+
+              var div1 = document.createElement('div');
+              div1.setAttribute('class' ,'row');
+              li.appendChild(div1);
+
+              var div2 = document.createElement('div');
+              div2.setAttribute('class' ,'left_column');
+              div2.innerHTML = name;
+              div1.appendChild(div2);
+
+              var a = document.createElement('a');
+              a.setAttribute('href', 'javascript:void(0)');
+              a.setAttribute('onClick', 'deleteEntry('+id+')');
+              a.innerHTML = '(delete)';
+              div2.appendChild(a);
+
+              var div3 =  document.createElement('div');
+              div3.setAttribute('class' ,'right_column');
+              div1.appendChild(div3);
+
+              var form1 =  document.createElement('form');
+              form1.setAttribute('onChange' ,'changeButtonColour(this)');
+              div3.appendChild(form1);
+
+              var input1 = document.createElement('input');
+              input1.setAttribute('class', 'quantity');
+              input1.setAttribute('id', id);
+              input1.setAttribute('type','number');
+              input1.setAttribute('name','quantity');
+              input1.setAttribute('min','0');
+              input1.setAttribute('value', quantity);
+              form1.appendChild(input1);
+
+              var input2 = document.createElement('input');
+              input2.setAttribute('type','button');
+              input2.setAttribute('onClick','updateQuantity('+id+')');
+              input2.setAttribute('value', 'submit');
+              form1.appendChild(input2);
+
+
+              alert('full pass');
+
             }
           };
 
           xhttp.open("GET", "utils/insertEntry.php?name="+name+"&qty="+quantity, true);
           xhttp.send();
-
         }
+
+
+        function deleteEntry(id){
+          var xhttp = new XMLHttpRequest();
+          xhttp.open("GET", "utils/deleteEntry.php?id="+id, true);
+          xhttp.send();
+          var element = document.getElementById(id).parentNode.parentNode.parentNode.parentNode;
+          while (element.firstChild) {
+              element.removeChild(element.firstChild);
+            }
+          element.remove();
+        }
+
         </script>
 
 
