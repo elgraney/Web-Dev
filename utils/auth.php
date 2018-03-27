@@ -8,7 +8,7 @@ if ( isset ($_POST["username"]) && isset($_POST["password"]))
 {
   $username = htmlentities($_POST["username"]) ;
   $password = htmlentities($_POST["password"]) ;
-  validateUser($conn, $username, $password) ;
+  validateUser($dbConnection, $username, $password) ;
 
 }
 else
@@ -18,20 +18,23 @@ else
 }
 
 
-function validateUser($conn, $username, $password)
+function validateUser($dbConnection, $username, $password)
 {
-  //Basic SQL protection
-  $username = $conn->real_escape_string($username);
+  $preparedStatement =$dbConnection->prepare('SELECT * FROM users WHERE username = :username ');
+  $preparedStatement->execute(array('username'=>$username));
 
-  $sql ="SELECT * FROM users WHERE username = '$username'";
-
-  $result = $conn->query($sql);
-  if ($result->num_rows > 0)
-  {
-    // output data of each row
-    while($row = $result->fetch_assoc())
+  //SERIOUS BUG WITH WRONG USERNAMES NOT WORKING
+  //die('pre if');
+  if(!empty($preparedStatement)){
+    //die('pass if');
+    echo 'what?';
+    foreach ($preparedStatement as $row)
     {
+
         $hashed_password = $row["password"];
+        if($row["salt"]){
+          $password = $row["salt"] . $password;
+        }
 
         //Check to see if our password is equal to our user input
         if ($hashed_password === hash("md5", $password))
@@ -47,16 +50,15 @@ function validateUser($conn, $username, $password)
           $_SESSION["apperror"] = $error ;
           header("Location: ../login.php");
         }
+      }
+
     }
+    else{
+      $error = "Invalid Login credentials" ;
+      $_SESSION["apperror"] = $error ;
 
   }
-  else
-  {
-    $error = "Invalid Login credentials";
-    $_SESSION["apperror"] = $error ;
-    header("Location: ../login.php");
-  }
-  $conn->close();
+
 }
 
 ?>

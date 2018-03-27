@@ -5,23 +5,24 @@ if (!isset($_SESSION['appuser'])) {
     die();
 }
 require 'utils/connection.php';
-$sql = "SELECT id, name, quantity FROM stock";
-$result = $conn->query($sql);
-$display = $result;
+$preparedStatement =$dbConnection->prepare('SELECT id, name, quantity FROM stock');
+$preparedStatement->execute();
+
+$display = $preparedStatement;
 
 ini_set("display_errors", 1);
 ini_set("display_startup_errors", 1);
 error_reporting(E_ALL);
 
 
-$conn->close();
 ?>
 
 
 <html>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="CSS/homepage_style.css">
-    <link rel="stylesheet" type="text/css" href="CSS/modal.css">
+    <link rel="stylesheet" type="text/css" href="CSS/modal1.css">
+    <link rel="stylesheet" type="text/css" href="CSS/barchart.css">
 
     <head>
         <title>Home</title>
@@ -29,13 +30,55 @@ $conn->close();
     </head>
 
     <body>
-      <div id = 'logout'>
+      <div id = 'logout'><b>
         <?php
-          echo $_SESSION['appuser'];
+           echo  $_SESSION['appuser'];
         ?>
-        <a class = "button" href = "logout.php">Logout</a>
+      </b><a class = "button" href = "logout.php">Logout</a>
       </div>
+      <div id = "new_account">Create New account</div>
+
+      <div id="myModal2" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+            <form action="javascript:createUser()" id = 'modal_form2'>
+
+              <h2>Enter New Account Details</h2>
+              <hr>
+              <label for="title"><b>Username</b></label>
+              <input type="text" placeholder="Enter Username" name="title" id='username' required>
+              <br><br>
+              <label for="psw"><b>Password</b></label>
+              <input type="password" placeholder="Enter Password" name="psw" class = 'password' id='password' required>
+
+              <label for="psw-repeat"><b>Repeat Password</b></label>
+              <input type="password" placeholder="Repeat Password" name="psw-repeat" class = 'password' id = 'repeatPassword' required>
+
+              <div id = 'responseDiv'></div>
+              <hr>
+              <div class="clearfix">
+                <br><center>
+                <button type="submit" class="blue_button">Create</button>
+              </center>
+              </div>
+          </form>
+          </div>
+        </div>
+
+
+
+
+
+
+        <br>
       <h1>Video Games Stock</h1>
+
+    </div class= 'row'><center>
+    <a class = 'blue_button' href = "d3.php">See Graphic</a>
+  </center><div>
+    <br>
+    <div id = 'graph' class = 'container'>
+    </div>
 
       <div class = "container">
           <div id = "search_pannel">
@@ -45,10 +88,10 @@ $conn->close();
               <button type="submit" class = 'blue_button' id="new_entry">Add new entry</button>
 
 
-              <div id="myModal" class="modal">
+              <div id="myModal1" class="modal">
                 <div class="modal-content">
                   <span class="close">&times;</span>
-                    <form action="javascript:createEntry()" id ='modal_form'>
+                    <form action="javascript:createEntry()" id ='modal_form1'>
 
                       <h2>Enter New Video Game Details</h2>
                       <p>NOTE: Please do not create a new entry if the game already exists</p>
@@ -71,9 +114,8 @@ $conn->close();
               </div>
           </div>
 
-        </div>
+        </div
       </div>
-
 
       <div class = 'container'>
         <ul class = "display_list">
@@ -159,21 +201,18 @@ $conn->close();
         function createEntry(){
           var name = document.getElementById('title').value;
           var quantity = document.getElementById('new_quantity').value;
-          var form = document.getElementById('modal_form');
+          var form = document.getElementById('modal_form1');
           var xhttp = new XMLHttpRequest();
           xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
               var id = xhttp.responseText;
-              var modal = document.getElementById('myModal');
+              var modal = document.getElementById('myModal1');
               modal.style.display = "none";
               form.reset();
-              alert(id);
-              //RETURN AND USE ID
-
 
               //Using Dom to create a new list item to represent the new new_entry
               //This must be done because we are avoiding reloading the page
-              alert('ready');
+
               var parent = document.getElementById('table');
 
               var li = document.createElement('li');
@@ -187,7 +226,7 @@ $conn->close();
 
               var div2 = document.createElement('div');
               div2.setAttribute('class' ,'left_column');
-              div2.innerHTML = name;
+              div2.innerHTML = name+' ';
               div1.appendChild(div2);
 
               var a = document.createElement('a');
@@ -220,8 +259,6 @@ $conn->close();
               form1.appendChild(input2);
 
 
-              alert('full pass');
-
             }
           };
 
@@ -229,7 +266,39 @@ $conn->close();
           xhttp.send();
         }
 
+        function createUser(){
+          var username = document.getElementById('username').value;
+          var password = document.getElementById('password').value;
+          var repeatPassword = document.getElementById('repeatPassword').value;
+          var responseDiv = document.getElementById('responseDiv');
 
+          responseDiv.innerHTML = "";
+
+          var form2 = document.getElementById('modal_form2');
+          var xhttp = new XMLHttpRequest();
+
+          xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+              var response = xhttp.responseText;
+              if (response){
+
+                responseDiv.innerHTML = response;
+
+
+              }
+              else{
+
+                var modal2 = document.getElementById('myModal2');
+                modal2.style.display = "none";
+                form2.reset();
+            }
+
+            }
+          };
+
+          xhttp.open("GET", "utils/createUser.php?username="+username+"&psw="+password + "&psw-repeat="+repeatPassword, true);
+          xhttp.send();
+        }
         function deleteEntry(id){
           var xhttp = new XMLHttpRequest();
           xhttp.open("GET", "utils/deleteEntry.php?id="+id, true);
@@ -247,27 +316,180 @@ $conn->close();
 
 
         <script>
-        var modal = document.getElementById('myModal');
+        var modal1 = document.getElementById('myModal1');
         var btn = document.getElementById("new_entry");
-        var span = document.getElementsByClassName("close")[0];
-        var form = document.getElementById('modal_form');
+        var span1 = document.getElementsByClassName("close")[1];
+        var form1 = document.getElementById('modal_form1');
 
         btn.onclick = function() {
-          modal.style.display = "block";
+          modal1.style.display = "block";
         }
 
-        span.onclick = function() {
-          modal.style.display = "none";
-          form.reset();
+        span1.onclick = function() {
+          modal1.style.display = "none";
+          form1.reset();
         }
 
         window.onclick = function(event) {
-          if (event.target == modal) {
-            modal.style.display = "none";
-            form.reset();
+          if (event.target == modal1) {
+            modal1.style.display = "none";
+            form1.reset();
           }
         }
         </script>
 
-    </body>
-</html>
+
+        <script>
+
+        var modal2 = document.getElementById('myModal2');
+        var trigger = document.getElementById("new_account");
+        var span2 = document.getElementsByClassName("close")[0];
+        var form2 = document.getElementById("modal_form2");
+
+        trigger.onclick = function() {
+          modal2.style.display = "block";
+
+        }
+
+        span2.onclick = function() {
+          modal2.style.display = "none";
+        form2.reset();
+        }
+
+        window.onclick = function(event) {
+          if (event.target == modal2) {
+            modal2.style.display = "none";
+            form2.reset();
+          }
+        }
+        </script>
+
+
+        <script src="http://d3js.org/d3.v3.min.js"></script>
+        <script>
+
+        var data = [{
+                "name": "Apples",
+                "value": 20,
+        },
+            {
+                "name": "Bananas",
+                "value": 12,
+        },
+            {
+                "name": "Grapes",
+                "value": 19,
+        },
+            {
+                "name": "Lemons",
+                "value": 5,
+        },
+            {
+                "name": "Limes",
+                "value": 16,
+        },
+            {
+                "name": "Oranges",
+                "value": 20,
+        },
+            {
+                "name": "Pears",
+                "value": 20,
+        }];
+
+        alert('hi');
+        var margin = {
+                    top: 15,
+                    right: 50,
+                    bottom: 15,
+                    left: 120
+                };
+
+        var width =  document.getElementById("graph").clientWidth ,
+            height = 80 * data.length;
+
+        var svg = d3.select("#graph").append("svg")
+            .attr("preserveAspectRatio", "xMinYMin meet")
+            .attr("viewBox", "0 0 "+width+" "+height)
+            .attr("height", height )
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+          var x = d3.scale.linear()
+            .range([0, width - margin.left -margin.right])
+            .domain([0, d3.max(data, function (d) {
+                return d.value;
+            })]);
+
+        var y = d3.scale.ordinal()
+            .rangeRoundBands([height, 0], .1)
+            .domain(data.map(function (d) {
+                return d.name;
+            }));
+
+          var yAxis = d3.svg.axis().scale(y).orient("left");
+
+        var gy = svg.append("g")
+        .attr("class", "y axis")
+        .call(yAxis)
+
+        var bars = svg.selectAll(".bar")
+        .data(data)
+        .enter()
+        .append("g")
+
+
+//append rects
+        bars.append("rect")
+        .attr("class", "bar")
+        .attr("y", function (d) {
+        return y(d.name);
+      })
+      .attr("height", y.rangeBand())
+      .attr("x", 0)
+      .attr("width", function (d) {
+        return x(d.value);
+    });
+
+
+    //add a value label to the right of each bar
+      bars.append("text")
+      .attr("class", "label")
+      //y position of the label is halfway down the bar
+      .attr("y", function (d) {
+        return y(d.name) + y.rangeBand() / 2 + 4;
+      })
+      //x position is 6 pixels to the left of the bar
+      .attr("x", function (d) {
+        return x(d.value) - 30;
+      })
+      .text(function (d) {
+        return d.value;
+
+      });
+      alert('pass4');
+
+
+      function getData(){
+        var xhttp = new XMLHttpRequest();
+
+        xhttp.onreadystatechange = function() {
+
+          if (this.readyState == 4 && this.status == 200) {
+
+            //return dictionary
+            var response = xhttp.responseText;
+            if (response){
+            }
+            else{
+
+          }
+
+          }
+        };
+
+        xhttp.open("GET", "utils/selectAll.php", true);
+        xhttp.send();
+      }
+        </script>

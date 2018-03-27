@@ -5,8 +5,9 @@ require "connection.php";
 
 $id = $_REQUEST["id"];
 $qty = $_REQUEST["qty"];
-$sql ="UPDATE stock SET quantity= $qty WHERE id = $id";
-$result = $conn->query($sql);
-$conn->close();
+
+$preparedStatement =$dbConnection->prepare('UPDATE stock SET quantity= :quantity WHERE id = :id');
+$preparedStatement->execute(array('quantity'=>$qty, 'id'=>$id));
+
 
 ?>

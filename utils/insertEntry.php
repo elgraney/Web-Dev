@@ -5,12 +5,16 @@ require "connection.php";
 
 $name = $_REQUEST["name"];
 $qty = $_REQUEST["qty"];
-$sql ="INSERT INTO stock(name, quantity) VALUES ('$name', '$qty')";
-$conn->query($sql);
 
-$sql ="SELECT * FROM stock WHERE name = '$name' ";
-$result = $conn->query($sql);
-while($row = $result->fetch_assoc()) {
+
+$preparedStatement = $dbConnection->prepare('INSERT INTO stock (name, quantity) VALUES (:name, :quantity)');
+$preparedStatement->execute(array('name' => $name, 'quantity' =>$qty));
+
+
+$preparedStatement =$dbConnection->prepare('SELECT * FROM stock WHERE name = :name ');
+$preparedStatement->execute(array('name'=>$name));
+
+foreach($preparedStatement as $row) {
         $id = $row['id'];
     }
 echo $id;

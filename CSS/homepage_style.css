@@ -38,7 +38,7 @@ body {
 h1 {
     position: static;
     text-align: center;
-    padding-top: 40px;
+    margin-top: 50px;
     font-size: 30px;
     font-family: 'Open Sans', sans-serif;
     font-weight:bold;
@@ -147,4 +147,17 @@ input[type=text]{
 input{
   margin-left: 5px;
   margin-right: 5px;
+}
+#new_account{
+  margin-right: 20px;
+  float: right;
+  color:#498af2;
+  text-decoration:none;
+  cursor: pointer;
+  margin-top:35px;
+  font-size: 16px;
+  font-family: 'Open Sans', sans-serif;
+}
+a{
+  text-decoration: none;
 }
