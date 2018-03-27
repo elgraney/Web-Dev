@@ -390,7 +390,7 @@ error_reporting(E_ALL);
         },
             {
                 "name": "Oranges",
-                "value": 20,
+                "value": 25,
         },
             {
                 "name": "Pears",

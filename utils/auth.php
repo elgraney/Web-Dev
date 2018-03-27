@@ -25,19 +25,25 @@ function validateUser($dbConnection, $username, $password)
 
   //SERIOUS BUG WITH WRONG USERNAMES NOT WORKING
   //die('pre if');
-  if(!empty($preparedStatement)){
-    //die('pass if');
-    echo 'what?';
-    foreach ($preparedStatement as $row)
+  $result = $preparedStatement->fetchAll();
+
+  if($result){
+    foreach ($result as $row)
     {
 
         $hashed_password = $row["password"];
         if($row["salt"]){
-          $password = $row["salt"] . $password;
+			$salt = $row["salt"];
+			echo $salt;
+          $password = ($salt . $password);
+		  echo md5($password);
+		echo '_____';
         }
-
+		echo md5($password);
+		echo '_____';
+		
         //Check to see if our password is equal to our user input
-        if ($hashed_password === hash("md5", $password))
+        if ($hashed_password === md5($password))
         {
           $_SESSION["appuser"] = $username ; // Initializing Session
           //echo $_SESSION["appuser"] ;
@@ -56,7 +62,7 @@ function validateUser($dbConnection, $username, $password)
     else{
       $error = "Invalid Login credentials" ;
       $_SESSION["apperror"] = $error ;
-
+		header("Location: ../login.php");
   }
 
 }

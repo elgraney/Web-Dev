@@ -18,8 +18,8 @@ if ($password != $repeatPassword ){
   return;
 }
 
-$salt = random_bytes ( 10 );
-$password = $password;
+$salt = substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil(32/strlen($x)) )),1,32);
+
 
 $password = md5($salt . $password);
 
