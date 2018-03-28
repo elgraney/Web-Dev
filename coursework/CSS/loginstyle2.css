@@ -1,0 +1,76 @@
+/* Sets default settings for page */
+body{
+    background-color: white;
+    height: 100%;
+    font-family: 'Open Sans', sans-serif;
+
+}
+/* the container for the two headings above the form */
+.title  {
+  font-family: 'Open Sans', sans-serif;
+  color: white;
+  text-align: center;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+/* For the largest heading text above the form */
+#head{
+    text-align: center;
+    margin-top:25px;
+    font-family: 'Open Sans', sans-serif;
+    font-size:38px;
+    color:#555557;
+}
+/* For the subheading above the form */
+#sub_head{
+  margin-top:25px;
+  font-family: 'Open Sans', sans-serif;
+  font-size:18px;
+  font-weight:bold;
+  color:#555557;
+}
+
+/* The area of the page that contains the form */
+#parent {
+    width: 100%;
+    margin: auto;
+    padding-top: 15px;
+ }
+
+/* Style of the form itself, making it stand out from the background*/
+ #form_login {
+    margin-top:17px;
+    width:355px;
+    height:280px;
+    padding-top:40px;
+    background:#f7f7f7;
+    box-shadow: 0px 1px 1px 1px #c6c1c1;
+    vertical-align: middle;
+ }
+
+/* Sets up the submit button with very specific dimensions; it has a fixed size */
+ #submit_button{
+    width:270px;
+    height:40px;
+
+    margin-top:50px;
+    background:#498af2;
+    font-size:16px; color:white;
+    border-radius:5px 5px 5px 5px;
+    border-width: 1px;
+    border-style:solid;
+    border-color: gray;
+    cursor:pointer;
+    outline:none;
+  }
+
+/* Sets the style of the username and password input fields */
+input {
+    text-align: center;
+    padding: 12px 20px;
+    margin: 8px 50px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}

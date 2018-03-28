@@ -1,0 +1,20 @@
+
+/* Sets color of the bars for the D3 graph */
+.bar {
+    fill: #5f89ad;
+}
+/* Sets size of bar name labels */
+.axis {
+    font-size: 14px;
+}
+/* removing the axis from the graph to make it less cluttered */
+.axis path,
+.axis line {
+    fill: none;
+    display: none;
+}
+/* Sets size of bar value labels */
+.label {
+    font-size: 16px;
+
+}
