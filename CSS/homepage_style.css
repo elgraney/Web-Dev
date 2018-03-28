@@ -1,14 +1,11 @@
-@import url('https://fonts.googleapis.com/css?family=Lato');
-@import url('https://fonts.googleapis.com/css?family=Rubik');
-
+/* Sets default settings for page */
 body {
     background-color: white;
     height: 100%;
-    font-family: "Roboto";
+    font-family: 'Open Sans', sans-serif;
     font-size: 16px;
 }
-
-
+/* Sets container dimensions and location for logout button */
 #logout {
   position: absolute;
   top: 10px;
@@ -17,6 +14,7 @@ body {
   line-height: 28px;
   padding: 0 12px;
 }
+/* For the logout button only as it turned out (other styled buttons use blue_button) */
 .button {
     background: #f8f8f8;
     border: 1px solid #c6c6c6;
@@ -30,11 +28,12 @@ body {
     padding: 0 12px;
     border-radius: 2px;
 }
-
 .button:hover {
     background-color: #ccc;
 }
 
+
+/* Style for heading text 'Video Games Stock' */
 h1 {
     position: static;
     text-align: center;
@@ -43,15 +42,16 @@ h1 {
     font-family: 'Open Sans', sans-serif;
     font-weight:bold;
     color:#555557;
-
-
 }
 
+/* container refers to main section of the page that holds the table of games and quantities*/
+/* if screen is over 500px, add white space to the sides to centralise useful information */
 @media only screen and (min-width: 500px) {
 .container{
 
   margin-left: 20%;
   margin-right: 20%;
+
   border-radius: 2px;
   background-color: #f7f7f7;
   box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
@@ -60,6 +60,7 @@ h1 {
   margin-bottom: 20px;
   }
 }
+/* if screen is less than 500px, remove white space from the sides so there is no wasted space */
 @media only screen and (max-width: 500px) {
   .container{
   border-radius: 2px;
@@ -71,19 +72,18 @@ h1 {
   }
 }
 
+/* Syle for a unordered list section used to display the table */
 .display_list{
-
   display: block;
-
   -webkit-padding-start: 0px;
   margin-left: 2%;
   margin-right: 2%;
   border-radius: 1px;
   overflow:hidden;
-
 }
-.item{
 
+/* for an item in the unordered list / row in the table */
+.item{
   margin: auto;
   border: 1px solid #e0e0e0;
   border-radius: 2px;
@@ -92,35 +92,36 @@ h1 {
   padding: 10px 20px;
 }
 
+/* Sets a container for a row of data */
 .row{
   margin-top: 10px;
   margin-top: 10px;
   margin-left: auto;
   margin-right: auto;
-
 }
+
+/* aligns contents to the left of a row*/
 .left_column{
   text-align: center;
   width: 40%;
-
   float: left;
   box-sizing: border-box;
-
-
 }
+/* aligns contents to the right of a row */
 .right_column{
   text-align: center;
   width: 40%;
   float: right;
   box-sizing: border-box;
-
   min-width: 100px
 }
-
+/* Container for the search bar inputs */
 #search_pannel{
   margin-left: 2%;
   margin-right: 2%;
 }
+
+/* For any text input, but specifically for the search bar */
 input[type=text]{
 
   padding-top: 0.2rem;
@@ -132,22 +133,25 @@ input[type=text]{
   background: 'white';
 }
 
+/* aligns the button to create a new entry to the right of the search bar */
 #new_entry{
-
   float: right;
-
 }
 
-
+/* Sets the dimensions for a quantity number input box */
 .quantity{
   max-width: 4em;
   font-size: 1rem;
   text-align: center;
 }
+
+/*makes sure all inputs have spacing */
 input{
   margin-left: 5px;
   margin-right: 5px;
 }
+
+/* Div containing the text 'Create New Account' in the top right */
 #new_account{
   margin-right: 20px;
   float: right;
@@ -158,6 +162,21 @@ input{
   font-size: 16px;
   font-family: 'Open Sans', sans-serif;
 }
+
+/* remove all underlines from links */
 a{
   text-decoration: none;
+}
+
+/* Alternative button type to .button*/
+.blue_button{
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 15px;
+  padding-right: 15px;
+  background: #2196F3;
+  color: white;
+  font-size: 1rem;
+  border: 1px solid grey;
+  cursor: pointer;
 }

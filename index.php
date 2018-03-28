@@ -1,1 +1,4 @@
-<a href = "login.php">General Kenobi!</a>
+<?php
+    //immediately redirects to login page
+    header("Location: login.php");
+?>
